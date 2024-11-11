@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.pinimg.com/originals/00/f7/95/00f795b7d97bf213382e87252f13ce11.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        #chat {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #summaryBox {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            resize: none;
+        }
+
+        #languageSelector {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat">
+        <h1>Medical Report Chat</h1>
+
+        
+        <label for="languageSelector">Select Language:</label>
+        <select id="languageSelector">
+            <option value="en" selected>English</option>
+            <option value="ar">Arabic</option>
+            <option value="as">Assamese</option>
+            <option value="bn">Bengali</option>
+            <option value="bg">Bulgarian</option>
+            <option value="ca">Catalan</option>
+            <option value="cs">Czech</option>
+            <option value="da">Danish</option>
+            <option value="de">German</option>
+            <option value="dog">Dogri</option>
+            <option value="et">Estonian</option>
+            <option value="es">Spanish</option>
+            <option value="fi">Finnish</option>
+            <option value="fr">French</option>
+            <option value="ga">Irish</option>
+            <option value="gl">Galician</option>
+            <option value="gu">Gujarati</option>
+            <option value="he">Hebrew</option>
+            <option value="hi">Hindi</option>
+            <option value="hu">Hungarian</option>
+            <option value="is">Icelandic</option>
+            <option value="it">Italian</option>
+            <option value="ja">Japanese</option>
+            <option value="jn">Javanese</option>
+            <option value="ka">Georgian</option>
+            <option value="kn">Kannada</option>
+            <option value="ks">Kashmiri</option>
+            <option value="ko">Korean</option>
+            <option value="lt">Lithuanian</option>
+            <option value="lv">Latvian</option>
+            <option value="mag">Magahi</option>
+            <option value="ml">Malayalam</option>
+            <option value="ms">Malay</option>
+            <option value="mr">Marathi</option>
+            <option value="mt">Maltese</option>
+            <option value="ne">Nepali</option>
+            <option value="nl">Dutch</option>
+            <option value="no">Norwegian</option>
+            <option value="or">Odia</option>
+            <option value="pa">Punjabi</option>
+            <option value="pl">Polish</option>
+            <option value="pt">Portuguese</option>
+            <option value="ro">Romanian</option>
+            <option value="ru">Russian</option>
+            <option value="sat">Santali</option>
+            <option value="si">Sinhala</option>
+            <option value="sk">Slovak</option>
+            <option value="sl">Slovenian</option>
+            <option value="sw">Swahili</option>
+            <option value="ta">Tamil</option>
+            <option value="te">Telugu</option>
+            <option value="th">Thai</option>
+            <option value="tr">Turkish</option>
+            <option value="uk">Ukrainian</option>
+            <option value="ur">Urdu</option>
+            <option value="vi">Vietnamese</option>
+            <option value="zh">Chinese (Simplified)</option>
+            <option value="san">Sanskrit</option>
+            <option value="bh">Bhojpuri</option>
+            <option value="dog">Dogri</option>
+            <option value="bn">Bengali</option>
+            <!-- Add more languages as needed -->
+        </select>
+ 
+
+        <textarea id="inputText" rows="4" placeholder="Type your medical report here..."></textarea>
+        <br>
+        <button onclick="uploadPDF()">Upload PDF</button>
+        <button onclick="summarize()">Summarize</button>
+        <button onclick="explain()">Identify Problems</button>
+
+        <div id="response"></div>
+
+        <div id="summaryBox">
+            <h2>Summary:</h2>
+            <div id="summaryContent">Your summary will appear here...</div>
+        </div>
+    </div>
+
+    <script>
+        // Populate language selector dynamically
+        const languages = {
+            "en": "English",
+            "es": "Spanish",
+            "fr": "French",
+            "de": "German",
+            "it": "Italian",
+            "pt": "Portuguese",
+            "zh": "Chinese",
+            "ar": "Arabic",
+            "ru": "Russian",
+            "ja": "Japanese",
+            "ko": "Korean",
+            // Add more languages as needed
+        };
+
+        const languageSelector = document.getElementById('languageSelector');
+        for (const [code, name] of Object.entries(languages)) {
+            const option = document.createElement('option');
+            option.value = code;
+            option.text = name;
+            languageSelector.appendChild(option);
+        }
+
+        async function uploadPDF() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.pdf';
+            fileInput.onchange = async () => {
+                const file = fileInput.files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('response').innerText = result.text || 'No text extracted.';
+            };
+            fileInput.click();
+        }
+
+        async function summarize() {
+            const text = document.getElementById('inputText').value;
+            const language = document.getElementById('languageSelector').value;
+            const response = await fetch('/summarize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, language })
+            });
+
+            const result = await response.json();
+            if (result.summary) {
+                document.getElementById('summaryContent').innerText = result.summary;
+                playAudio(result.audio_url);
+            }
+        }
+
+        async function explain() {
+            const text = document.getElementById('inputText').value;
+            const language = document.getElementById('languageSelector').value;
+            const response = await fetch('/explain', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, language })
+            });
+
+            const result = await response.json();
+            if (result.explanation) {
+                document.getElementById('summaryContent').innerText = result.explanation;
+                playAudio(result.audio_url);
+            }
+        }
+
+        function playAudio(audioUrl) {
+            const audio = new Audio(audioUrl);
+            audio.play();
+        }
+    </script>
+</body>
+
+</html>

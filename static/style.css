@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Chat Window */
+.chat-window {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Chat Body */
+.chat-body {
+    height: 400px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+/* Chat Footer */
+.chat-footer {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Input and Button Styles */
+input[type="text"],
+input[type="file"],
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex: 1;
+    /* Allow input to take available space */
+}
+
+/* Button Styles */
+.chat-btn {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button Hover Effect */
+.chat-btn:hover {
+    background-color: #218838;
+}
+
+/* Dropdown Styles */
+.summary-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Dropdown Button */
+.summary-dropdown #summary-button {
+    margin-left: 10px;
+    /* Space from upload button */
+}
+
+/* Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+/* Dropdown Items */
+.dropdown-item {
+    padding: 10px;
+    background-color: white;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Dropdown Item Hover Effect */
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show the dropdown when button is clicked */
+.show {
+    display: block;
+}

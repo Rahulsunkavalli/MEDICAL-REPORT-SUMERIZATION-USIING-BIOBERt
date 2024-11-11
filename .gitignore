@@ -1,0 +1,32 @@
+# Ignore virtual environments
+venv/
+.venv/
+
+# Ignore environment variables file
+.env
+
+# Ignore sensitive data like API keys
+apikeys.json
+config.json
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore log files
+*.log
+
+# Ignore IDE settings
+.vscode/
+.idea/
+
+# Ignore Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Ignore test coverage files
+coverage/
+
+# Ignore system files (macOS, Windows)
+.DS_Store
+Thumbs.db
