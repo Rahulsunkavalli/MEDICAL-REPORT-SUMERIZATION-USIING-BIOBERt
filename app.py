@@ -65,7 +65,7 @@ def extractive_summary(text):
     
     return summary if summary.strip() else "No valid summary generated."
 # Initialize Google Generative AI
-genai.configure(api_key=os.getenv("AIzaSyAJONLVfr744J2u3OEyNW5mMrESRuQdCUg"))
+genai.configure(api_key=os.getenv(""))
 gen_model = genai.GenerativeModel('gemini-pro')
 
 # Directories and configuration
